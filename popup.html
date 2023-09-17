@@ -1,14 +1,17 @@
 <html lang="en">
   <head>
-    <title>Developer tools</title>
+    <title>Developer tools popup</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/tools/format_JSON/codemirror.css">
+    <script src="/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/tools/format_JSON/codemirror.js"></script>
+    <script src="/tools/format_JSON/mode.javascript.js"></script>
   </head>
-  <body>
+  <body style="width: 400px; text-align:center; align-items:center;">
     <nav class="navbar shadow-lg rounded mb-3" style="background-color: #fff;">
       <div class="container-fluid">
-        <a class="navbar-brand">
+        <a class="navbar-brand" href="/popup.html">
           <img src="/assets/61387309-modified.png" alt="Logo" width="30vw" height="auto" class="d-inline-block align-text-top">
           Developer Tools
         </a>
@@ -16,14 +19,31 @@
     </nav>
     <div class="ms-3">
       <p class="d-inline-flex gap-1">
-        <a class="btn btn-dark" href="#collapseExample" role="button">
-          Format JSON
+        <button class="btn btn-dark" type="button" id="ffrawjson">
+          FF JSON
         </a>
-        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <script src="/tools/format_JSON/formatJSON.js"></script>
+        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapseExample">
           Help
         </button>
       </p>
-      <div class="collapse me-3 mb-3" id="collapseExample">
+      <div class="collapse me-3 mb-3" id="collapse1">
+        <div class="card card-body">
+          Fast Formatting JSON. This tool copy the last element in your clipboard (suppose a JSON), parse it, and paste it in your clipboard. Ready to use.
+        </div>
+      </div>
+    </div>
+    <div class="ms-3">
+      <p class="d-inline-flex gap-1">
+        <a class="btn btn-dark" type="button" href="/tools/format_JSON/formatJSON.html" id="fjson" role="button">
+          Format JSON
+        </a>
+        <script src="/tools/format_JSON/formatJSON.js"></script>
+        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapseExample">
+          Help
+        </button>
+      </p>
+      <div class="collapse me-3 mb-3" id="collapse2">
         <div class="card card-body">
           This formatting improves the readability of JSON and makes it more suitable for viewing and maintenance.
         </div>

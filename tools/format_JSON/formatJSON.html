@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Format JSON</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="/tools/format_JSON/codemirror.css">
+        <link rel="stylesheet" href="/tools/format_JSON/theme.dracula.css">
+        <script src="/bootstrap/bootstrap.bundle.min.js"></script>
+        <script src="/tools/format_JSON/codemirror.js"></script>
+        <script src="/tools/format_JSON/mode.javascript.js"></script>
+        <script src="/tools/format_JSON/formatJSON.js"></script>
+    </head>
+    <body style="width: 400px; text-align:center; align-items:center;">
+        <nav class="navbar shadow-lg rounded mb-3" style="background-color: #fff;">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/popup.html">
+                <img src="/assets/61387309-modified.png" alt="Logo" width="30vw" height="auto" class="d-inline-block align-text-top">
+                Developer Tools
+              </a>
+            </div>
+        </nav>
+        <div class="mb-3 ms-3 me-3">
+            Insert JSON
+            <div class="input-group">
+                <textarea class="form-control" aria-label="With textarea" id="inputjson"></textarea>
+            </div>
+        </div>
+        <textarea class="mb-3" id="editor"></textarea>
+    </body>
+</html>
