@@ -3,6 +3,9 @@ var fjson;
 var editor;
 var rawJson;
 var codeMirrorEditor;
+var thereIsSettings;
+var setting_lineNumbers;
+var setting_mode;
 
 document.addEventListener('DOMContentLoaded', function(){
     if (document.title == 'Developer tools popup') {
@@ -11,11 +14,39 @@ document.addEventListener('DOMContentLoaded', function(){
             ffjson();
         });
     }else if(document.title == 'Format JSON'){
+        chrome.storage.local.get(null).then((res) => {
+            if (res != null) { //FIXME - non aggiorna la variabile e di conseguenza si rompe, forse non va bene il null?
+                thereIsSettings = true;
+            }else{
+                thereIsSettings = false;
+            }
+            console.log('æ thereIsSettings: ',thereIsSettings);
+            console.log('æ settings: ',res);
+        }).finally(() => {
+            if(thereIsSettings == false) {
+                chrome.storage.local.set({ CodeMirror_Setting_LineNumbers : true}).then(() => {
+                    setting_lineNumbers = true;
+                    console.log("æ lineNumbers is set.");
+                });
+                chrome.storage.local.set({ CodeMirror_Setting_Mode : 'javascript' }).then(() => {
+                    setting_mode = 'javascript';
+                    console.log("æ mode is set.");
+                }).finally(() => {
+                    chrome.storage.local.get(null).then((res) => {
+                        console.log('æ current cache: ',res);
+                    });
+                });
+            }else{
+                chrome.storage.local.get(null).then((res) => {
+                    console.log('æ current cache: ',res);
+                });
+            }
+        });
         editor = document.getElementById('editor');
         rawJson = document.getElementById('inputjson');
         codeMirrorEditor = CodeMirror.fromTextArea(editor, {
-            lineNumbers: true,
-            mode: 'javascript'
+            lineNumbers: setting_lineNumbers,
+            mode: setting_mode
         });
         rawJson.addEventListener('input', function(){
             fjson();
@@ -39,6 +70,7 @@ async function ffjson() {
         }
     } catch (error) {
         console.error(error);
+        alert('Check if the last content in your clipboard is a JSON!');
     }
 }
 

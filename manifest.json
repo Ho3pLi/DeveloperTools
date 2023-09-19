@@ -14,7 +14,8 @@
     "128": "/assets/128x128.png"
   },
   "permissions": [
-  "clipboardRead",
-  "clipboardWrite"
+    "storage",
+    "clipboardRead",
+    "clipboardWrite"
   ]
 }

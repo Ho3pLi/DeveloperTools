@@ -116,7 +116,6 @@
       // IE and Edge may throw an "Unspecified Error" when accessing document.activeElement.
       // IE < 10 will throw when accessed while the page is loading or in an iframe.
       // IE > 9 and Edge will throw when accessed in an iframe if document.body is unavailable.
-      console.log('æ doc: ', doc);
       var activeElement;
       try {
         activeElement = doc.activeElement;
@@ -9719,8 +9718,6 @@
   
     function fromTextArea(textarea, options) {
       options = options ? copyObj(options) : {};
-      console.log('æ options: ',options);
-      console.log('æ textarea: ', textarea);
       options.value = textarea.value;
       if (!options.tabindex && textarea.tabIndex)
         { options.tabindex = textarea.tabIndex; }
