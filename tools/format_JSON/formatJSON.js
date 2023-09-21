@@ -6,6 +6,7 @@ var codeMirrorEditor;
 var thereIsSettings;
 var setting_lineNumbers;
 var setting_mode;
+var setting_theme;
 
 document.addEventListener('DOMContentLoaded', function(){
     if (document.title == 'Developer tools popup') {
@@ -15,22 +16,15 @@ document.addEventListener('DOMContentLoaded', function(){
             ffjson();
         });
     }else if(document.title == 'Format JSON'){
+        editor = document.getElementById('editor');
+        rawJson = document.getElementById('inputjson');
         try {
             chrome.storage.local.get(null, function(res) {
-                if (chrome.runtime.lastError) {
-                    console.error(chrome.runtime.lastError);
-                }
                 settingsHandler(res);
             });
         } catch (error) {
             console.error(error);
         }
-        editor = document.getElementById('editor');
-        rawJson = document.getElementById('inputjson');
-        codeMirrorEditor = CodeMirror.fromTextArea(editor, {
-            lineNumbers: setting_lineNumbers,
-            mode: setting_mode
-        });
         rawJson.addEventListener('input', function(){
             fjson();
         })
@@ -83,21 +77,28 @@ function settingsHandler(res) {
 
 function initSettings(){
     if(thereIsSettings == false) {
-        chrome.storage.local.set({ CodeMirror_Setting_LineNumbers : true}).then(() => {
+        chrome.storage.local.set({CodeMirror_Setting_LineNumbers:true, CodeMirror_Setting_Mode:'javascript', CodeMirror_Setting_Theme:'default'}, function(res) {
             setting_lineNumbers = true;
-            console.log("æ lineNumbers is set.");
-        });
-        chrome.storage.local.set({ CodeMirror_Setting_Mode : 'javascript' }).then(() => {
             setting_mode = 'javascript';
-            console.log("æ mode is set.");
-        }).finally(() => {
-            chrome.storage.local.get(null).then((res) => {
-                console.log('æ current cache: ',res);
+            setting_theme = 'default';
+            codeMirrorEditor = CodeMirror.fromTextArea(editor, {
+                lineNumbers: setting_lineNumbers,
+                mode: setting_mode,
+                theme: setting_theme
             });
-        });
+            console.log(res);
+        })
     }else{
-        chrome.storage.local.get(null).then((res) => {
-            console.log('æ current cache: ',res);
-        });
+        chrome.storage.local.get(null, function(res) {
+            console.log('æ current settings: ',res);
+            setting_lineNumbers = res['CodeMirror_Setting_LineNumbers'];
+            setting_mode = res['CodeMirror_Setting_Mode'];
+            setting_theme = res['CodeMirror_Setting_Theme'];
+            codeMirrorEditor = CodeMirror.fromTextArea(editor, {
+                lineNumbers: setting_lineNumbers,
+                mode: setting_mode,
+                theme: setting_theme
+            });
+        })
     }
 }
